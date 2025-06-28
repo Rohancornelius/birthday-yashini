@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      margin-bottom: 20px;
+      animation: glow 2s ease-in-out infinite;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff0080;
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px #fff, 0 0 20px #ff0080; }
+      50% { text-shadow: 0 0 25px #ff66b2, 0 0 35px #fff0f5; }
+    }
+
+    .gift-box {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(145deg, #ff4b5c, #ff6f91);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.1);
+    }
+
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      height: 25px;
+      background: #d1226d;
+      border-radius: 8px 8px 0 0;
+      z-index: 2;
+      transform-origin: bottom center;
+    }
+
+    .ribbon-horizontal, .ribbon-vertical {
+      background: #fff;
+      position: absolute;
+    }
+
+    .ribbon-horizontal {
+      width: 100%;
+      height: 10px;
+      top: 40%;
+      left: 0;
+    }
+
+    .ribbon-vertical {
+      height: 100%;
+      width: 10px;
+      left: 45%;
+      top: 0;
+    }
+
+    .box-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 0.9em;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 0 0 5px #ff4b91, 0 0 12px #ff007f;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 1.2em;
+      display: none;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatHeart 3s linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+
+    @keyframes floatHeart {
+      to {
+        transform: translateY(-100px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday, Eruma! 🎉</h1>
+
+  <div class="gift-box" onclick="openGift()">
+    <div class="ribbon-horizontal"></div>
+    <div class="ribbon-vertical"></div>
+    <div class="box-text">OPEN<br>SURPRISE</div>
+  </div>
+
+  <div class="message" id="birthdayMessage">
+    <p>To me, your friendship truly means everything.<br>
+    Wishing you a very Happy and Fabulous birthday, <strong>YASHINI!</strong> 💖</p>
+  </div>
+
+  <audio id="birthdayMusic" src="birthday-music.mp3" preload="auto"></audio>
+
+  <script>
+    function openGift() {
+      const message = document.getElementById("birthdayMessage");
+      const audio = document.getElementById("birthdayMusic");
+
+      message.style.display = "block";
+      audio.play().catch(e => console.log("Playback error:", e));
+
+      // Floating hearts
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        heart.style.background = getRandomColor();
+        heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ["#ff4b5c", "#ff6f91", "#f9a1bc", "#ff85a1", "#f55c7a"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
